@@ -4,30 +4,29 @@ int PWM1 = 3;
 int red = 9;
 int green = 10;
 int blue = 11;
-int PWM1_default;
+int PWM_default;
+int pwmNow;
+int offset = 100;
 int i = 0;
 
 void setup() {
 
-  Serial.begin(9200);
+  //Serial.begin(9200);
 
   pinMode(PWM1, INPUT); //Signal Empfänger
-  //pinMode(red, OUTPUT); //LED-Auspuff
-  //pinMode(green, OUTPUT); //LED-Auspuff
-  //pinMode(blue, OUTPUT); //LED-Auspuff
 
-  PWM1_default = pulseIn(PWM1, HIGH); // start PWM (0 Punkt)
+  PWM_default = 1500;//pulseIn(PWM1, HIGH); // start PWM (0 Punkt)
   
 }
 void loop() {
 
-  int pwm1 = pulseIn(PWM1, HIGH); // read PWM
-  if (pwm1 > PWM1_default + 100)
+  pwmNow = pulseIn(PWM1, HIGH); // read PWM
+  if (pwmNow > PWM_default + offset)
   {
-    delay(400);
-    int pwm1 = pulseIn(PWM1, HIGH); // read PWM
-    if (pwm1 < PWM1_default + 20){
-      i = random(3);
+    delay(100); // mal rausnehmen und testen
+    pwmNow = pulseIn(PWM1, HIGH); // read PWM
+    if (pwmNow <= PWM_default + offset){
+      i = 2;//random(3);
       if (i == 0)
       {
         analogWrite(red, 255);
@@ -38,7 +37,7 @@ void loop() {
         analogWrite(green, 0);
         analogWrite(blue, 0);
 
-        delay(300);
+        delay(180);
         
         analogWrite(red, 255);
         analogWrite(green, 80);
@@ -48,7 +47,7 @@ void loop() {
         analogWrite(green, 0);
         analogWrite(blue, 0);
         
-        delay(180);
+        delay(100);
 
         analogWrite(red, 255);
         analogWrite(green, 0);
@@ -57,8 +56,6 @@ void loop() {
         analogWrite(red, 0);
         analogWrite(green, 0);
         analogWrite(blue, 0);
-
-        //i++;
       }
       else if (i == 1)
       {
@@ -70,7 +67,7 @@ void loop() {
         analogWrite(green, 0);
         analogWrite(blue, 0);
 
-        delay(300);
+        delay(180);
 
         analogWrite(red, 255);
         analogWrite(green, 0);
@@ -79,7 +76,6 @@ void loop() {
         analogWrite(red, 0);
         analogWrite(green, 0);
         analogWrite(blue, 0);
-        //i++;
       }
       else if (i == 2)
       {
@@ -92,7 +88,7 @@ void loop() {
         analogWrite(green, 0);
         analogWrite(blue, 0);
 
-        delay(300);
+        delay(180);
 
         analogWrite(red, 255);
         analogWrite(green, 70);
@@ -121,7 +117,6 @@ void loop() {
         analogWrite(red, 0);
         analogWrite(green, 0);
         analogWrite(blue, 0);
-        //i = 0;
       }
     }
   }
